@@ -64,7 +64,8 @@ const Users = () => {
         },
         (payload) => {
           // console.log(payload);
-          router.reload();
+          fetchUsers();
+          // router.reload();
         }
       )
       .subscribe();
@@ -75,14 +76,12 @@ const Users = () => {
   }, [])
 
 
+  async function fetchUsers() {
+    let { data, error } = await supabase.from('Users').select('*');
+    if (data) setUsers(data);
+    // console.log(data);
+  }
   useEffect(() => {
-
-    async function fetchUsers() {
-      let { data, error } = await supabase.from('Users').select('*');
-      if (data) setUsers(data);
-      // console.log(data);
-    }
-
     fetchUsers();
   }, [])
 
