@@ -17,7 +17,7 @@ function User({ index, userID, username, phone, timestamp }) {
   const router = useRouter();
 
 
-  async function deleteUser(){
+  async function deleteUser() {
     let { data, error } = await supabase.from('Users').delete().eq('user_id', userID)
     router.reload();
   }
@@ -108,7 +108,7 @@ const Users = () => {
             <User
               key={index + 1}
               userID={user.user_id}
-              index={index}
+              index={index + 1}
               username={user.username}
               phone={user.phone}
               timestamp={user.timestamp}
