@@ -1,11 +1,16 @@
-import { supabase } from '@/lib/client';
+import { supabase } from '../lib/client';
 import { Router, useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react'
-import { useSubscription } from 'react-supabase'
 
+interface UserProps {
+  index: number;
+  userID: string;
+  username: string;
+  phone: string;
+  timestamp: number;
+}
 
-
-function formatTimestamp(timestamp) {
+function formatTimestamp(timestamp: number): string {
   const date = new Date(timestamp);
   const day = date.getDate().toString().padStart(2, "0");
   const month = (date.getMonth() + 1).toString().padStart(2, "0"); // Months are zero-indexed
@@ -13,16 +18,13 @@ function formatTimestamp(timestamp) {
   return `${day}-${month}-${year}`;
 }
 
-function User({ index, userID, username, phone, timestamp }) {
+function User({ index, userID, username, phone, timestamp }: UserProps) {
   const router = useRouter();
-
 
   async function deleteUser() {
     let { data, error } = await supabase.from('Users').delete().eq('user_id', userID)
     router.reload();
   }
-
-
 
   return (
     <div className='user'>
@@ -44,13 +46,10 @@ function User({ index, userID, username, phone, timestamp }) {
 }
 
 const Users = () => {
-
   const router = useRouter();
 
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState<any[]>([]); // You can replace `any[]` with a more specific type if possible.
   let usersComponent;
-
-
 
   useEffect(() => {
     const userSubscription = supabase
@@ -63,9 +62,7 @@ const Users = () => {
           table: 'Users',
         },
         (payload) => {
-          // console.log(payload);
           fetchUsers();
-          // router.reload();
         }
       )
       .subscribe();
@@ -75,21 +72,14 @@ const Users = () => {
     }
   }, [])
 
-
   async function fetchUsers() {
     let { data, error } = await supabase.from('Users').select('*');
     if (data) setUsers(data);
-    // console.log(data);
   }
+
   useEffect(() => {
     fetchUsers();
   }, [])
-
-
-
-
-
-
 
   return (
     <div className="admin-page">
@@ -102,20 +92,16 @@ const Users = () => {
         <p className='prompt'>Customer who booked on this day</p>
       </div>
       <div className='users'>
-        {
-
-          users.map((user, index) =>
-            <User
-              key={index + 1}
-              userID={user.user_id}
-              index={index + 1}
-              username={user.username}
-              phone={user.phone}
-              timestamp={user.timestamp}
-            />
-          )
-
-        }
+        {users.map((user, index) =>
+          <User
+            key={index + 1}
+            userID={user.user_id}
+            index={index + 1}
+            username={user.username}
+            phone={user.phone}
+            timestamp={user.timestamp}
+          />
+        )}
       </div>
     </div>
   )
