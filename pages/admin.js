@@ -98,7 +98,7 @@ const Users = () => {
       <div className='admin-prompt'>
         <div className='admin-upper-container'>
           <p>customers</p>
-          <p>2/3</p>
+          <p>{`${users?.length} / 60`}</p>
         </div>
         <p className='prompt'>Customer who booked on this day</p>
       </div>
