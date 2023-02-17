@@ -107,7 +107,7 @@ const Users = () => {
 
           users.map((user, index) =>
             <User
-              key={index}
+              key={index + 1}
               userID={user.user_id}
               index={index}
               username={user.username}

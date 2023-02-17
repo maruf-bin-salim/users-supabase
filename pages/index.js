@@ -18,7 +18,7 @@ export default function Home() {
     let { data, error } = await supabase.from('Users').select('*');
     if (data) {
 
-      if(data.length < 5)
+      if(data.length < 60)
       {
         // save user to database
         await supabase.from('Users').insert([user]);
