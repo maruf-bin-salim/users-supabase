@@ -49,7 +49,6 @@ const Users = () => {
   const router = useRouter();
 
   const [users, setUsers] = useState<any[]>([]); // You can replace `any[]` with a more specific type if possible.
-  let usersComponent;
 
   useEffect(() => {
     const userSubscription = supabase
