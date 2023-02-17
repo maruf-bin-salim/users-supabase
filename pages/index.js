@@ -46,7 +46,7 @@ export default function Home() {
             <p>For reservations, fill in your details</p>
             <input type="text" placeholder='First Name' value={username} onChange={(e) => { setError(false); setUsername(e.target.value) }} />
             <input type="text" placeholder='Number Mob.' value={phone} onChange={(e) => { setError(false); setPhone(e.target.value) }} />
-            {isError && <p style={{color: "red", textAlign: "center", marginTop: "10px"}}>Your data wasn't saved. Already 60 users have reservation.</p>}
+            {isError && <p style={{color: "red", textAlign: "center", marginTop: "10px"}}>{"Your data wasn't saved. Already 60 users have reservation."}</p>}
           </div>
           <div className="user-button-container">
             <button onClick={handleSubmit}>Reservation</button>
